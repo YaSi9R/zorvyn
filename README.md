@@ -1,70 +1,60 @@
-# Getting Started with Create React App
+# Zorvyn Finance Dashboard - Developer Documentation
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a premium Finance Dashboard built to demonstrate modern frontend capabilities. Below is a detailed breakdown of the technical decisions, architecture, and design philosophy—perfect for discussing during a technical interview.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🧠 The Approach: How it was Built
 
-### `npm start`
+### 1. The Design System (CSS-First)
+Before writing a single React component, I established a **Core Design System** in `index.css`. 
+- **Thinking**: In a professional environment, consistency is key. I used CSS Variables for colors, spacing, and shadows to ensure that any UI changes (like implementing Dark Mode) would be as simple as updating a few tokens.
+- **Aesthetics**: I chose a "Sleek Dark" palette with glassmorphism effects (`backdrop-filter`) to give it a premium, modern feel that stands out from generic dashboards.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 2. State Management (React Context API)
+I implemented the `FinanceContext` to act as the "brain" of the application.
+- **Why Context?**: For an application of this size, Redux would be overkill. Context API provides a clean way to share state (transactions, current role, filters) without "prop drilling."
+- **Performance**: I used `useMemo` extensively for calculating statistics (Total Balance, Income, Expenses) and for filtering/sorting the transaction list. This ensures that the UI remains snappy even as the data grows, as heavy calculations only re-run when the underlying data changes.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 3. Data Visualization (Recharts)
+For financial data, clarity is everything. 
+- **Balance Trend**: Used an `AreaChart` with a custom gradient to show the movement of wealth over 30 days.
+- **Spending Breakdown**: Used a `PieChart` (Donut style) to give users an immediate visual of where their money goes.
+- **Approach**: I built specific data-processing utilities in the Context to transform raw transaction data into the format Recharts expects.
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🛠️ Key Problem Solving & Logic
 
-### `npm run build`
+### 1. Role-Based Access Control (RBAC)
+- **Problem**: How to handle different user permissions (Admin vs. Viewer) on the frontend?
+- **Solution**: I implemented a `role` state. When set to `Viewer`, the UI dynamically hides "Add" buttons and disables "Delete/Edit" actions. This demonstrates an understanding of security-conscious UI design.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 2. Smart Insights Engine
+- **The Logic**: Instead of just showing numbers, I built a component that analyzes the data. For example, it identifies the "Highest Spending Category" dynamically from the transaction history.
+- **Interview Note**: Mentioning that "UI should provide value, not just data" shows you think about the Product, not just the Code.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 3. Data Persistence
+- **Implementation**: I integrated `localStorage` within the `useEffect` hooks in the Context.
+- **Thinking**: Users expect their data to be there when they refresh. This adds a "production-ready" feel to the assignment.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## 📈 Scalability Considerations
+If this were a production app, my next steps would be:
+1. **API Integration**: Replacing the mock data generator with an Axios/TanStack Query layer to fetch from a backend.
+2. **Unit Testing**: Adding Vitest/Jest for the calculation logic in the Context.
+3. **Advanced Filtering**: Adding date-range pickers and multi-category selection.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 📂 Project Structure Overview
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- `src/index.css`: The source of truth for the design system.
+- `src/context/FinanceContext.jsx`: The central state and logic layer.
+- `src/components/Dashboard/`: High-level summary and visualizations.
+- `src/components/Transactions/`: Core data interaction (Filtering/Sorting).
+- `src/utils/mockData.js`: Seeding logic for a realistic initial state.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
+*This dashboard reflects a "Design-First, Logic-First" approach to frontend engineering.*

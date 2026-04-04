@@ -32,7 +32,7 @@ For financial data, clarity is everything.
 
 ### 2. Smart Insights Engine
 - **The Logic**: Instead of just showing numbers, I built a component that analyzes the data. For example, it identifies the "Highest Spending Category" dynamically from the transaction history.
-- **Interview Note**: Mentioning that "UI should provide value, not just data" shows you think about the Product, not just the Code.
+
 
 ### 3. Data Persistence
 - **Implementation**: I integrated `localStorage` within the `useEffect` hooks in the Context.
@@ -57,4 +57,4 @@ If this were a production app, my next steps would be:
 - `src/utils/mockData.js`: Seeding logic for a realistic initial state.
 
 ---
-*This dashboard reflects a "Design-First, Logic-First" approach to frontend engineering.*
+

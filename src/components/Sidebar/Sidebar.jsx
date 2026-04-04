@@ -3,7 +3,6 @@ import {
   LayoutDashboard, 
   Receipt, 
   LineChart, 
-  Settings, 
   LogOut, 
   Menu, 
   X,

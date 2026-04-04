@@ -3,7 +3,6 @@ import {
   TrendingUp, 
   TrendingDown, 
   DollarSign, 
-  CreditCard,
   ArrowUpRight,
   ArrowDownRight
 } from 'lucide-react';
